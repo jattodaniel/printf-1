@@ -21,7 +21,7 @@ char *(*fn)(va_list argu);
 } sir;
 void *_calloc(unsigned int nmemb, unsigned int size);
 char *fntn(const char symbl, va_list);
-char *_strncat(char *dest, char *src, int n);
+int _strncat(char *buff, const char *format, int n);
 char *_strcat(char *dest, char *src);
 char *str_chr(va_list argu);
 char *str_str(va_list argu);

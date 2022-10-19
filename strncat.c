@@ -1,23 +1,26 @@
 #include "main.h"
+
 /**
- *_strncat -  concatenates two strings
- *@src: string one
- *@dest: string two
- *@n: number of bytes
- *Return: dest
+ * _strncat - concatenate two strings
+ * @buff: string of destiny
+ * @format: source string
+ * @n: possition in format
+ * Return: dest string
  */
-char *_strncat(char *dest, char *src, int n)
+
+int _strncat(char *buff, const char *format, int n)
 {
-int i = 0;
-int j = 0;
-while (dest[i] != '\0')
+int i;
+i = 0;
+while (buff[i] != 00)
 {
 i++;
 }
-for (j = 0; j < n && src[j] != '\0'; j++, i++)
+while (format[n] != 00 && format[n] != 37)
 {
-dest[i] = src[j];
+buff[i] = format[n];
+i++;
+n++;
 }
-dest[i] = '\0';
-return (dest);
+return (n);
 }
