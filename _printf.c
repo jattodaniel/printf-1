@@ -1,44 +1,49 @@
 #include "main.h"
 
 /**
- * _printf - my printf
- * @format: input constant
- * Return: size of bufer (success) or -1 if fail
+ * _printf - prints formatted data to stdout
+ * @format: string that contains the format to print
+ * Return: number of characters written
  */
-
-int _printf(const char *format, ...)
+int _printf(char *format, ...)
 {
-if (format != NULL)
-{
-va_list argu;
-unsigned int i;
-char *buf, *temp_str;
-va_start(argu, format);
-buf = _calloc(2048, sizeof(char));
-if (buf == NULL)
+int written = 0, (*structype)(char *, va_list);
+char q[3];
+va_list pa;
+if (format == NULL)
 return (-1);
-i = 0;
-while (format && format[i] != 00)
+q[2] = '\0';
+va_start(pa, format);
+_putchar(-1);
+while (format[0])
 {
-if (format[0] == 37 && format[1] == 00)
+if (format[0] == '%')
 {
-return (-1);
-}
-i = _strncat(buf, format, i);
-if (format[i] == 37)
+structype = driver(format);
+if (structype)
 {
-i++;
-temp_str = fntn(format[i], argu);
-_strcat(buf, temp_str);
+q[0] = '%';
+q[1] = format[1];
+written += structype(q, pa);
 }
-if (format[i] != 00)
-i++;
+else if (format[1] != '\0')
+{
+written += _putchar('%');
+written += _putchar(format[1]);
 }
-i = _strlen(buf);
-write(1, buf, i);
-va_end(argu);
-free(buf);
-return (i);
+else
+{
+written += _putchar('%');
+break;
 }
-return (-1);
+format += 2;
+}
+else
+{
+written += _putchar(format[0]);
+format++;
+}
+}
+_putchar(-2);
+return (written);
 }
